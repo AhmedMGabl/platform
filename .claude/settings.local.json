@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(rush update:*)",
+      "Bash(npm install:*)",
+      "Bash(rush install:*)",
+      "Bash(rush build:*)",
+      "Bash(rush link:*)",
+      "Bash(powershell:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(rush validate:*)",
+      "Bash(node:*)",
+      "Bash(curl:*)",
+      "Bash(rushx build)",
+      "Bash(rushx svelte-check)",
+      "Bash(rushx dev-server:*)",
+      "Bash(rush docker:up:*)",
+      "Bash(cat:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(rush desktop)",
+      "Bash(rushx dev)",
+      "Bash(npm start)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

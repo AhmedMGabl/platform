@@ -2385,6 +2385,31 @@
       "packageName": "@hcengineering/pod-translate",
       "projectFolder": "services/translate",
       "shouldPublish": false
+    },
+    {
+      "packageName": "@hcengineering/unholy-ai",
+      "projectFolder": "plugins/unholy-ai",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@hcengineering/unholy-ai-assets",
+      "projectFolder": "plugins/unholy-ai-assets",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@hcengineering/model-unholy-ai",
+      "projectFolder": "models/unholy-ai",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@hcengineering/unholy-ai-resources",
+      "projectFolder": "plugins/unholy-ai-resources",
+      "shouldPublish": false
+    },
+    {
+      "packageName": "@hcengineering/server-unholy-ai",
+      "projectFolder": "server-plugins/unholy-ai",
+      "shouldPublish": false
     }
   ]
 }

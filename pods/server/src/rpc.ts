@@ -130,11 +130,9 @@ async function sendJson (
 }
 
 export function registerRPC (app: Express, sessions: SessionManager, ctx: MeasureContext, accountsUrl: string): void {
-  const rpcSessions = new Map<string, RPCClientInfo>()
+  const rpcSessions: Map<string, RPCClientInfo> = new Map<string, RPCClientInfo>()
 
-  function getAccountClient (token?: string): AccountClient {
-    return getAccountClientRaw(accountsUrl, token)
-  }
+  const getAccountClient = (token: string): AccountClient => getAccountClientRaw(accountsUrl, token)
 
   async function withSession (
     req: Request,
@@ -363,6 +361,60 @@ export function registerRPC (app: Express, sessions: SessionManager, ctx: Measur
       const params = await retrieveJson(req)
       const { result } = await session.domainRequestRaw(ctx, domain, params)
       await sendJson(req, res, result.value)
+    })
+  })
+
+  // Add AI enhance endpoint without explicit :workspaceId; derive workspace from token.
+  app.post('/api/ai/enhance', (req, res) => {
+    try {
+      const rawAuth = (req.headers.authorization ?? '') as string
+      const token = rawAuth.split(' ')[1]
+      const payload = decodeToken(token)
+      ;(req.params as any).workspaceId = payload.workspace
+    } catch (err: any) {
+      sendError(res, 401, { message: 'Unauthorized', error: err?.message })
+      return
+    }
+
+    void withSession(req, res, 'aiEnhance', async (ctx, session, rateLimit) => {
+      const { text, context } = (await retrieveJson(req)) ?? {}
+      if (typeof text !== 'string' || text.trim() === '') {
+        sendError(res, 400, { message: 'Text is required' })
+        return
+      }
+
+      const { result } = await session.domainRequestRaw(ctx, 'unholy-ai' as OperationDomain, {
+        enhanceText: { params: { text, context } }
+      })
+
+      await sendJson(req, res, { enhancedText: result.value }, rateLimitToHeaders(rateLimit))
+    })
+  })
+
+  // Add AI create-task endpoint without explicit :workspaceId; derive workspace from token.
+  app.post('/api/ai/create-task', (req, res) => {
+    try {
+      const rawAuth = (req.headers.authorization ?? '') as string
+      const token = rawAuth.split(' ')[1]
+      const payload = decodeToken(token)
+      ;(req.params as any).workspaceId = payload.workspace
+    } catch (err: any) {
+      sendError(res, 401, { message: 'Unauthorized', error: err?.message })
+      return
+    }
+
+    void withSession(req, res, 'aiCreateTask', async (ctx, session, rateLimit) => {
+      const request: any = (await retrieveJson(req)) ?? {}
+      if (typeof request?.prompt !== 'string' || request.prompt.trim() === '') {
+        sendError(res, 400, { message: 'Prompt is required' })
+        return
+      }
+
+      const { result } = await session.domainRequestRaw(ctx, 'unholy-ai' as OperationDomain, {
+        createTaskWithAI: { params: request }
+      })
+
+      await sendJson(req, res, result.value, rateLimitToHeaders(rateLimit))
     })
   })
 

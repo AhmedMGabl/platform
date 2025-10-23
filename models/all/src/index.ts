@@ -122,6 +122,7 @@ import { achievementId, createModel as achievementModel } from '@hcengineering/m
 import { emojiId, createModel as emojiModel } from '@hcengineering/model-emoji'
 import { billingId, createModel as billingModel } from '@hcengineering/model-billing'
 import { communicationId, createModel as communicationModel } from '@hcengineering/model-communication'
+import { unholyAiId, createModel as unholyAiModel } from '@hcengineering/model-unholy-ai'
 import { type Plugin } from '@hcengineering/platform'
 
 interface ConfigurablePlugin extends Omit<Data<PluginConfiguration>, 'pluginId' | 'transactions'> {}
@@ -503,6 +504,18 @@ export default function buildModel (): Builder {
         description: aiAssistant.string.ConfigDescription,
         hidden: true,
         enabled: false,
+        beta: true,
+        classFilter: defaultFilter
+      }
+    ],
+    [
+      unholyAiModel,
+      unholyAiId,
+      {
+        label: 'AI Configuration',
+        description: 'Configure AI providers and settings',
+        hidden: false,
+        enabled: true,
         beta: true,
         classFilter: defaultFilter
       }

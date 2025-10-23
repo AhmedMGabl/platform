@@ -283,6 +283,9 @@
     "@hcengineering/ai-assistant": "^0.7.0",
     "@hcengineering/ai-assistant-assets": "^0.7.0",
     "@hcengineering/ai-assistant-resources": "^0.7.0",
+    "@hcengineering/unholy-ai": "^0.7.0",
+    "@hcengineering/unholy-ai-assets": "^0.7.0",
+    "@hcengineering/unholy-ai-resources": "^0.7.0",
     "readable-stream": "^4.7.0",
     "svelte": "^4.2.20"
   }

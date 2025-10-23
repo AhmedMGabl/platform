@@ -77,7 +77,8 @@ import communication, { communicationId } from '@hcengineering/communication'
 import { emojiId } from '@hcengineering/emoji'
 import billingPlugin, { billingId } from '@hcengineering/billing'
 import { hulyMailId } from '@hcengineering/huly-mail'
-import { aiAssistantId } from '@hcengineering/ai-assistant'
+// import { aiAssistantId } from '@hcengineering/ai-assistant'
+// import unholyAi, { unholyAiId } from '@hcengineering/unholy-ai'
 
 import '@hcengineering/activity-assets'
 import '@hcengineering/analytics-collector-assets'
@@ -134,7 +135,8 @@ import '@hcengineering/communication-assets'
 import '@hcengineering/emoji-assets'
 import '@hcengineering/billing-assets'
 import '@hcengineering/huly-mail-assets'
-import '@hcengineering/ai-assistant-assets'
+// import '@hcengineering/ai-assistant-assets'
+// import '@hcengineering/unholy-ai-assets'
 
 import { coreId } from '@hcengineering/core'
 import presentation, {
@@ -185,6 +187,11 @@ export interface Config {
   PREVIEW_URL?: string
   PREVIEW_CONFIG?: string
   UPLOAD_CONFIG?: string
+  // 🌟 UNHOLY AI CONFIGURATION
+  OPENROUTER_API_KEY?: string
+  OPENROUTER_MODEL?: string
+  OPENROUTER_TEMPERATURE?: string
+  OPENROUTER_MAX_TOKENS?: string
   STATS_URL?: string
   PRESENCE_URL?: string
   USE_BINARY_PROTOCOL?: boolean
@@ -392,10 +399,10 @@ function configureI18n (): void {
     hulyMailId,
     async (lang: string) => await import(`@hcengineering/huly-mail-assets/lang/${lang}.json`)
   )
-  addStringsLoader(
-    aiAssistantId,
-    async (lang: string) => await import(`@hcengineering/ai-assistant-assets/lang/${lang}.json`)
-  )
+  // addStringsLoader(
+  //   aiAssistantId,
+  //   async (lang: string) => await import(`@hcengineering/ai-assistant-assets/lang/${lang}.json`)
+  // )
 }
 
 export async function configurePlatform () {
@@ -491,6 +498,10 @@ export async function configurePlatform () {
   setMetadata(notification.metadata.PushPublicKey, config.PUSH_PUBLIC_KEY)
   setMetadata(analyticsCollector.metadata.EndpointURL, config.ANALYTICS_COLLECTOR_URL)
   setMetadata(aiBot.metadata.EndpointURL, config.AI_URL)
+  setMetadata(unholyAi.metadata.OpenRouterAPIKey, config.OPENROUTER_API_KEY ?? '')
+  setMetadata(unholyAi.metadata.OpenRouterModel, config.OPENROUTER_MODEL ?? 'anthropic/claude-3.5-sonnet')
+  setMetadata(unholyAi.metadata.OpenRouterTemperature, parseFloat(config.OPENROUTER_TEMPERATURE ?? '0.7'))
+  setMetadata(unholyAi.metadata.OpenRouterMaxTokens, parseInt(config.OPENROUTER_MAX_TOKENS ?? '2000'))
 
   setMetadata(github.metadata.GithubApplication, config.GITHUB_APP ?? '')
   setMetadata(github.metadata.GithubClientID, config.GITHUB_CLIENTID ?? '')
@@ -586,13 +597,14 @@ export async function configurePlatform () {
     async () => await import(/* webpackChunkName: "diffview" */ '@hcengineering/diffview-resources')
   )
   addLocation(timeId, async () => await import(/* webpackChunkName: "time" */ '@hcengineering/time-resources'))
-  addLocation(
-    desktopPreferencesId,
-    async () =>
-      await import(/* webpackChunkName: "desktop-preferences" */ '@hcengineering/desktop-preferences-resources')
-  )
+  // addLocation(
+  //   desktopPreferencesId,
+  //   async () =>
+  //     await import(/* webpackChunkName: "desktop-preferences" */ '@hcengineering/desktop-preferences-resources')
+  // )
   addLocation(analyticsCollectorId, async () => await import('@hcengineering/analytics-collector-resources'))
   addLocation(aiBotId, async () => await import('@hcengineering/ai-bot-resources'))
+  // addLocation(unholyAiId, async () => await import('@hcengineering/unholy-ai-resources'))
 
   addLocation(trackerId, async () => await import(/* webpackChunkName: "tracker" */ '@hcengineering/tracker-resources'))
   addLocation(boardId, async () => await import(/* webpackChunkName: "board" */ '@hcengineering/board-resources'))
@@ -667,10 +679,10 @@ export async function configurePlatform () {
     hulyMailId,
     async () => await import(/* webpackChunkName: "hulyMail" */ '@hcengineering/huly-mail-resources')
   )
-  addLocation(
-    aiAssistantId,
-    async () => await import(/* webpackChunkName: "ai-assistant" */ '@hcengineering/ai-assistant-resources')
-  )
+  // addLocation(
+  //   aiAssistantId,
+  //   async () => await import(/* webpackChunkName: "ai-assistant" */ '@hcengineering/ai-assistant-resources')
+  // )
 
   setMetadata(client.metadata.FilterModel, 'ui')
   setMetadata(client.metadata.ExtraPlugins, ['preference' as Plugin])

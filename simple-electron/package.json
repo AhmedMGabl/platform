@@ -1,0 +1,12 @@
+{
+  "name": "huly-simple-desktop",
+  "version": "1.0.0",
+  "description": "Simple Huly Desktop App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}

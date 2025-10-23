@@ -1,0 +1,32 @@
+{
+  "name": "@hcengineering/unholy-ai-assets",
+  "version": "0.7.0",
+  "main": "lib/index.js",
+  "svelte": "src/index.ts",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*",
+    "icons/**/*",
+    "tsconfig.json"
+  ],
+  "author": "Unholy Platform Contributors",
+  "license": "EPL-2.0",
+  "scripts": {
+    "build": "compile",
+    "build:watch": "compile",
+    "format": "format src",
+    "_phase:build": "compile transpile src",
+    "_phase:format": "format src",
+    "_phase:validate": "compile validate"
+  },
+  "devDependencies": {
+    "@hcengineering/platform-rig": "^0.7.19",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@hcengineering/platform": "^0.7.5",
+    "@hcengineering/unholy-ai": "^0.7.0"
+  },
+  "repository": "https://github.com/hcengineering/platform"
+}

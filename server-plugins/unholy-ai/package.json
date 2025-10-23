@@ -1,0 +1,44 @@
+{
+  "name": "@hcengineering/server-unholy-ai",
+  "version": "0.7.0",
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "types/**/*",
+    "tsconfig.json"
+  ],
+  "author": "Unholy Platform Contributors",
+  "license": "EPL-2.0",
+  "scripts": {
+    "build": "compile",
+    "build:watch": "compile",
+    "format": "format src",
+    "_phase:build": "compile transpile src",
+    "_phase:format": "format src",
+    "_phase:validate": "compile validate",
+    "_phase:test": "jest --passWithNoTests --silent --forceExit",
+    "test": "jest --passWithNoTests --silent --forceExit"
+  },
+  "devDependencies": {
+    "@hcengineering/platform-rig": "^0.7.19",
+    "typescript": "^5.9.3",
+    "jest": "^29.7.0",
+    "@types/jest": "^29.5.5",
+    "ts-jest": "^29.1.1"
+  },
+  "dependencies": {
+    "@hcengineering/core": "^0.7.7",
+    "@hcengineering/platform": "^0.7.5",
+    "@hcengineering/server-core": "^0.7.0",
+    "@hcengineering/server-setting": "^0.7.0",
+    "@hcengineering/model-unholy-ai": "^0.7.0",
+    "@hcengineering/unholy-ai": "^0.7.0",
+    "@hcengineering/unholy-ai-resources": "^0.7.0",
+    "@hcengineering/model-server-core": "^0.7.0",
+    "openai": "^4.47.1",
+    "@anthropic-ai/sdk": "^0.20.0",
+    "node-fetch": "^3.3.2",
+    "crypto": "^1.0.1"
+  }
+}
