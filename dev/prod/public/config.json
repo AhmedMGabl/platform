@@ -1,5 +1,5 @@
 {
-  "ACCOUNTS_URL": "/account",
+  "ACCOUNTS_URL": "http://localhost:3000",
   "COLLABORATOR_URL": "ws://huly.local:3078",
   "FILES_URL": "http://huly.local:4030/blob/:workspace/:blobId/:filename",
   "UPLOAD_URL": "http://huly.local:4030/upload/form-data/:workspace",

@@ -78,7 +78,7 @@ import { emojiId } from '@hcengineering/emoji'
 import billingPlugin, { billingId } from '@hcengineering/billing'
 import { hulyMailId } from '@hcengineering/huly-mail'
 // import { aiAssistantId } from '@hcengineering/ai-assistant'
-// import unholyAi, { unholyAiId } from '@hcengineering/unholy-ai'
+import unholyAi, { unholyAiId } from '@hcengineering/unholy-ai'
 
 import '@hcengineering/activity-assets'
 import '@hcengineering/analytics-collector-assets'
@@ -136,7 +136,7 @@ import '@hcengineering/emoji-assets'
 import '@hcengineering/billing-assets'
 import '@hcengineering/huly-mail-assets'
 // import '@hcengineering/ai-assistant-assets'
-// import '@hcengineering/unholy-ai-assets'
+import '@hcengineering/unholy-ai-assets'
 
 import { coreId } from '@hcengineering/core'
 import presentation, {
@@ -498,10 +498,11 @@ export async function configurePlatform () {
   setMetadata(notification.metadata.PushPublicKey, config.PUSH_PUBLIC_KEY)
   setMetadata(analyticsCollector.metadata.EndpointURL, config.ANALYTICS_COLLECTOR_URL)
   setMetadata(aiBot.metadata.EndpointURL, config.AI_URL)
-  setMetadata(unholyAi.metadata.OpenRouterAPIKey, config.OPENROUTER_API_KEY ?? '')
-  setMetadata(unholyAi.metadata.OpenRouterModel, config.OPENROUTER_MODEL ?? 'anthropic/claude-3.5-sonnet')
-  setMetadata(unholyAi.metadata.OpenRouterTemperature, parseFloat(config.OPENROUTER_TEMPERATURE ?? '0.7'))
-  setMetadata(unholyAi.metadata.OpenRouterMaxTokens, parseInt(config.OPENROUTER_MAX_TOKENS ?? '2000'))
+  // Temporarily disabled - unholy-ai metadata configuration
+  // setMetadata(unholyAi.metadata.OpenRouterAPIKey, config.OPENROUTER_API_KEY ?? '')
+  // setMetadata(unholyAi.metadata.OpenRouterModel, config.OPENROUTER_MODEL ?? 'anthropic/claude-3.5-sonnet')
+  // setMetadata(unholyAi.metadata.OpenRouterTemperature, parseFloat(config.OPENROUTER_TEMPERATURE ?? '0.7'))
+  // setMetadata(unholyAi.metadata.OpenRouterMaxTokens, parseInt(config.OPENROUTER_MAX_TOKENS ?? '2000'))
 
   setMetadata(github.metadata.GithubApplication, config.GITHUB_APP ?? '')
   setMetadata(github.metadata.GithubClientID, config.GITHUB_CLIENTID ?? '')
@@ -604,6 +605,7 @@ export async function configurePlatform () {
   // )
   addLocation(analyticsCollectorId, async () => await import('@hcengineering/analytics-collector-resources'))
   addLocation(aiBotId, async () => await import('@hcengineering/ai-bot-resources'))
+  // Temporarily disabled - unholy-ai-resources causing TypeScript type issues
   // addLocation(unholyAiId, async () => await import('@hcengineering/unholy-ai-resources'))
 
   addLocation(trackerId, async () => await import(/* webpackChunkName: "tracker" */ '@hcengineering/tracker-resources'))

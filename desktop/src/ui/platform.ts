@@ -138,7 +138,7 @@ import textEditor, { textEditorId } from '@hcengineering/text-editor'
 
 import { initThemeStore, setDefaultLanguage } from '@hcengineering/theme'
 import { configureNotifications } from './notifications'
-import { configureAnalyticsProviders } from '@hcengineering/analytics-providers'
+// import { configureAnalyticsProviders } from '@hcengineering/analytics-providers'
 import { Branding, Config } from './types'
 import { ipcMainExposed } from './typesUtils'
 
@@ -282,7 +282,7 @@ export async function configurePlatform (onWorkbenchConnect?: () => Promise<void
   const title = myBranding.title ?? 'Huly Desktop'
   ipcMain.setTitle(title)
 
-  configureAnalyticsProviders(config)
+  // configureAnalyticsProviders(config)
 
   setMetadata(login.metadata.AccountsUrl, config.ACCOUNTS_URL)
   setMetadata(login.metadata.DisableSignUp, config.DISABLE_SIGNUP === 'true')

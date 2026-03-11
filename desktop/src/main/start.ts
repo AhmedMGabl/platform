@@ -265,7 +265,12 @@ function runTheApp (): void {
     if (isDev) {
       mainWindow.webContents.openDevTools()
     }
-    await mainWindow.loadFile(containerPagePath)
+    // In dev mode, load from the dev server instead of local file
+    if (isDev && FRONT_URL.startsWith('http')) {
+      await mainWindow.loadURL(FRONT_URL)
+    } else {
+      await mainWindow.loadFile(containerPagePath)
+    }
     addPermissionHandlers(mainWindow.webContents.session)
     handleAuthRedirects(mainWindow)
     handleWillDownload(mainWindow)

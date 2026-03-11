@@ -359,3 +359,78 @@ server-plugins/my-plugin-resources/ # Server UI components
 The repository includes a typed API client at `packages/api-client/`. See the [API Client README](./packages/api-client/README.md) for programmatic interaction with Huly.
 
 Examples: https://github.com/hcengineering/huly-examples
+
+## Unholy AI Features
+
+This fork includes enhanced AI capabilities through the Unholy AI plugin system:
+
+### AI Plugin Structure
+
+The AI features are organized across multiple packages:
+- **plugins/unholy-ai/** - Core AI plugin logic and interfaces
+- **plugins/unholy-ai-assets/** - AI feature assets and translations
+- **plugins/unholy-ai-resources/** - Svelte UI components for AI features
+- **models/unholy-ai/** - AI data models (client-side)
+- **server-plugins/unholy-ai/** - Server-side AI service implementation
+
+### Core AI Capabilities
+
+- **Task Creation with AI** - Generate detailed tasks from natural language descriptions
+- **Text Enhancement** - Improve writing quality and clarity
+- **Document Analysis** - Extract insights and action items from documents
+- **Smart Suggestions** - Contextual recommendations based on project state
+- **Risk Analysis** - Identify and mitigate project risks
+- **Code Analysis** - Review code and suggest improvements
+- **Meeting Bot** - Automated meeting transcription and action item extraction
+
+### AI Provider Support
+
+The system supports multiple AI providers with automatic fallback:
+- **OpenRouter** - Primary provider with access to multiple models
+- **OpenAI** - GPT models
+- **Anthropic** - Claude models
+- **Zhipu AI** - GLM models (Chinese AI provider)
+
+### Configuration
+
+AI features are configured via environment variables in `dev/.env`:
+
+```bash
+# OpenRouter Configuration (Recommended)
+OPENROUTER_API_KEY=your_api_key
+OPENROUTER_MODEL=anthropic/claude-3.5-sonnet
+OPENROUTER_TEMPERATURE=0.7
+OPENROUTER_MAX_TOKENS=2000
+
+# Alternative: Zhipu AI (Chinese Provider)
+ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
+ANTHROPIC_API_KEY=your_zhipu_api_key
+
+# Meeting Bot Configuration
+MEETING_BOT_ENABLED=true
+GOOGLE_MEET_CLIENT_ID=your_google_client_id
+LARK_APP_ID=your_lark_app_id
+```
+
+### Development Workflow for AI Features
+
+```bash
+# Develop AI features
+cd plugins/unholy-ai-resources
+rushx dev
+
+# Test server-side AI logic
+cd server-plugins/unholy-ai
+rushx test
+
+# Update AI models after changes
+cd dev/tool
+rushx run-local upgrade -f
+```
+
+### AI Feature Documentation
+
+For detailed setup and usage instructions, see:
+- **UNHOLY_AI_SETUP.md** - Quick start guide for AI features
+- **AI_SETUP_GUIDE.md** - Comprehensive AI configuration
+- **MEETING_BOT_SETUP.md** - Meeting bot integration guide

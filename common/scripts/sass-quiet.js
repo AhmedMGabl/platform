@@ -26,6 +26,31 @@ if (!process.stderr._originalWrite) {
   };
 }
 
-const sass = require('sass');
+// Try to require sass from the caller's context
+// This works around the issue where sass-quiet.js is in common/scripts
+// but sass is installed in common/temp/node_modules
+let sass;
+try {
+  // First try normal require (works if called from a package with sass dependency)
+  sass = require('sass');
+} catch (e) {
+  // If that fails, try to resolve from common/temp/node_modules
+  const path = require('path');
+  const sassPath = path.join(__dirname, '../temp/node_modules/.pnpm');
+  const fs = require('fs');
+
+  // Find sass directory in pnpm store
+  if (fs.existsSync(sassPath)) {
+    const dirs = fs.readdirSync(sassPath);
+    const sassDir = dirs.find(dir => dir.startsWith('sass@'));
+    if (sassDir) {
+      sass = require(path.join(sassPath, sassDir, 'node_modules/sass'));
+    } else {
+      throw new Error('Cannot find sass module in pnpm store');
+    }
+  } else {
+    throw e;
+  }
+}
 
 module.exports = sass;
